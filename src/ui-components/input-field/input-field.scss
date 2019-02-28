@@ -1,0 +1,17 @@
+input {
+    margin: 5px;
+    padding: 2px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #ced4da;
+    width: 250px;
+    height: 25px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-bottom: 2px solid #2E9AFE;
+    transition: border-color 0.15s ease-in-out;
+}
