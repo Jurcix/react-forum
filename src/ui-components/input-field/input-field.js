@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import "./input-field.scss";
+import { CSS_CLASSES } from "./constants";
 
 class InputField extends Component {
   constructor(props) {
@@ -26,12 +27,15 @@ class InputField extends Component {
   }
 
   _getLabelClassName() {
-    let className = "empty-field";
-    if (this.state.value) {
-      className = "non-empty-field"
-    }
-    if (this.state.isInputFieldFocused) {
-      className = "focused"
+    let className = `${CSS_CLASSES.LABEL}`;
+    if (this.state.value || this.state.isInputFieldFocused) {
+      className = `${className} ${CSS_CLASSES.LABEL_RAISED}`
+
+      if (this.state.isInputFieldFocused) {
+        className = `${className} ${CSS_CLASSES.LABEL_FOCUSED}`;
+      }
+    } else {
+      className = `${className} ${CSS_CLASSES.LABEL_LOWERED}`;
     }
 
     return className;
@@ -47,9 +51,10 @@ class InputField extends Component {
     } = this.props;
 
     return (
-      <div className="input-field">
-        <label className={this._getLabelClassName()} htmlFor={id}> {label} </label>
+      <div className={CSS_CLASSES.INPUT_WRAPPER}>
+        {label && <label className={this._getLabelClassName()} htmlFor={id}> {label} </label>}
         <input
+          className={CSS_CLASSES.FIELD}
           id={id}
           type={type}
           required={required}
@@ -61,7 +66,7 @@ class InputField extends Component {
         {validationMessages.length > 0 &&
           validationMessages.map(
             (message, key) => (
-                <p className="input-field__validation-message" key={key}> {message} </p>
+              <p className={CSS_CLASSES.VALIDATION_MESSAGE} key={key}> {message} </p>
             )
           )
         }

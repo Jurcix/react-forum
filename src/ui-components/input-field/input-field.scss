@@ -1,5 +1,5 @@
-.input-field {
-  input {
+.input-wrapper {
+  &__field {
     margin: 5px 5px 0px 5px;
     padding: 8px 2px 2px 2px;
     border-top: none;
@@ -17,16 +17,16 @@
     }
   }
 
-  label {
+  &__label {
     transition: font-size 0.15s ease-in-out, margin 0.15s ease-in-out;
     position: absolute;
 
-    &.empty-field {
+    &.lowered {
       font-size: 16px;
       margin: 14px;
     }
 
-    &.non-empty-field {
+    &.raised {
       color: #ced4da;
       font-size: 10px;
       margin: 0px 0px 0px 5px;
@@ -34,8 +34,6 @@
 
     &.focused {
       color: #2e9afe;
-      font-size: 10px;
-      margin: 0px 0px 0px 5px;
     }
 
     &:hover {

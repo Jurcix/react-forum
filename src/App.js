@@ -10,7 +10,6 @@ class App extends Component {
         <InputField
           id="thisisid"
           type="text"
-          placeholder="Placeholder"
           required={false}
           value="hello"
           label="Label"
