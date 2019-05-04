@@ -7,8 +7,36 @@ class InputField extends Component {
     super(props)
     this.state = {
       isInputFieldFocused: false,
-      value: props.value || ''
+      value: this._getInitialValue(props.value, props.type)
     };
+  }
+
+  _getInitialValue(providedValue, inputType) {
+    let value = providedValue;
+
+    if(typeof providedValue === "undefined") {
+      value = "";
+    }    
+    if(inputType !== "number" && typeof providedValue === "number") {
+      value = providedValue.toString();
+    } 
+    if(inputType === "number" && typeof providedValue !== "number") {
+      value = "";
+    }    
+    return value;
+  }
+
+  _getFieldType(providedType) {
+    let type = "text";
+
+    if(providedType === "number") {
+      type = providedType;
+    }
+    if(providedType === "password") {
+      type = providedType
+    }
+
+    return type;
   }
 
   _handleChange(event) {
@@ -54,14 +82,14 @@ class InputField extends Component {
       <div className={CSS_CLASSES.INPUT_WRAPPER}>
         {label && <label className={this._getLabelClassName()} htmlFor={id}> {label} </label>}
         <input
-          className={CSS_CLASSES.FIELD}
           id={id}
-          type={type}
+          className={CSS_CLASSES.FIELD}
+          type={this._getFieldType(type)}
           required={required}
+          value={this.state.value}
           onChange={(event) => this._handleChange(event)}
           onFocus={(event) => this._handleFocus(event)}
           onBlur={(event) => this._handleBlur(event)}
-          value={this.state.value}
         />
         {validationMessages.length > 0 &&
           validationMessages.map(
