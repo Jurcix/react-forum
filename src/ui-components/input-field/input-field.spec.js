@@ -3,8 +3,7 @@ import { shallow } from "enzyme";
 import InputField from "./input-field.js";
 import { CSS_CLASSES } from "./constants.js";
 
-describe("Input field", () => {
-  
+describe("Input field", () => {  
   it("mounts component", () => {
     const wrapper = shallow(<InputField />);
     expect(wrapper).toBeTruthy();
@@ -16,7 +15,6 @@ describe("Input field", () => {
   })
 
   describe("props are set correctly", () => {
-
     function testInputFieldProps(givenData, expectedResults) {
       const wrapper = shallow(
         <InputField
@@ -204,111 +202,109 @@ describe("Input field", () => {
         testInputFieldProps(testCase.givenData, testCase.expectedResults);
       });
     });
-
   });
 
-    describe("validation messages", () => {
-      it("are rendered when provided only one", () => {
-        const testValidationMessages = ["validation message"];
-        const wrapper = shallow(<InputField validationMessages={testValidationMessages} />);
+  describe("validation messages", () => {
+    it("are rendered when provided only one", () => {
+      const testValidationMessages = ["validation message"];
+      const wrapper = shallow(<InputField validationMessages={testValidationMessages} />);
 
-        expect(wrapper.exists(`.${CSS_CLASSES.VALIDATION_MESSAGE}`)).toBeTruthy();
-        expect(wrapper.find(`.${CSS_CLASSES.VALIDATION_MESSAGE}`).text().trim()).toBe(testValidationMessages[0]);
-      });
-      it("are rendered when provided when provided multiple", () => {
-        const testValidationMessages = ["validation message", "validation message 2", "validation message 3"];
-        const wrapper = shallow(<InputField validationMessages={testValidationMessages} />);
-
-        expect(wrapper.exists(`.${CSS_CLASSES.VALIDATION_MESSAGE}`)).toBeTruthy();
-        expect(wrapper.find(`.${CSS_CLASSES.VALIDATION_MESSAGE}`).length).toBe(3);
-      });
-      it("are not rendered when not provided", () => {
-        const wrapper = shallow(<InputField />);
-
-        expect(wrapper.exists(`.${CSS_CLASSES.VALIDATION_MESSAGE}`)).toBeFalsy();
-      });
+      expect(wrapper.exists(`.${CSS_CLASSES.VALIDATION_MESSAGE}`)).toBeTruthy();
+      expect(wrapper.find(`.${CSS_CLASSES.VALIDATION_MESSAGE}`).text().trim()).toBe(testValidationMessages[0]);
     });
+    it("are rendered when provided when provided multiple", () => {
+      const testValidationMessages = ["validation message", "validation message 2", "validation message 3"];
+      const wrapper = shallow(<InputField validationMessages={testValidationMessages} />);
 
-    describe("label", () => {
-      it("is rendered when provided", () => {
-        const testLabel = "this is label";
-        const wrapper = shallow(<InputField label={testLabel} />);
-
-        expect(wrapper.exists("label")).toBeTruthy();
-        expect(wrapper.find("label").text().trim()).toBe(testLabel);
-      });
-      it("is not rendered when not provided", () => {
-        const wrapper = shallow(<InputField />);
-
-        expect(wrapper.exists("label")).toBeFalsy();
-      });
-      it("has label lowered class applied when field is empty", () => {
-        const testLabel = "this is label";
-        const expectedLabel = CSS_CLASSES.LABEL_LOWERED;
-        const wrapper = shallow(<InputField label={testLabel} />);
-        const resultLabel = wrapper.find("label").prop("className");
-
-        expect(resultLabel).toMatch(expectedLabel);
-      });
-      it("has label raised class applied when field is not empty", () => {
-        const testLabel = "this is label";
-        const testValue = "this is value"
-        const expectedLabel =  CSS_CLASSES.LABEL_RAISED;
-        const wrapper = shallow(<InputField label={testLabel} value={testValue} />);
-        const resultLabel = wrapper.find("label").prop("className");
-
-        expect(resultLabel).toMatch(expectedLabel);
-      });
-      it("has label focused and raised classes applied when field is focused", () => {
-        const testLabel = "this is label";
-        const expectedLabelRaised = CSS_CLASSES.LABEL_RAISED;
-        const expectedLabelFocused = CSS_CLASSES.LABEL_FOCUSED;
-        const wrapper = shallow(<InputField label={testLabel} />);
-        const mockEvent = {
-          stopPropagation: () => {}
-        };
-        
-        wrapper.find("input").simulate("focus", mockEvent);
-        const resultLabel = wrapper.find("label").prop("className");
-
-        expect(resultLabel).toMatch(expectedLabelRaised);
-        expect(resultLabel).toMatch(expectedLabelFocused);
-      });
+      expect(wrapper.exists(`.${CSS_CLASSES.VALIDATION_MESSAGE}`)).toBeTruthy();
+      expect(wrapper.find(`.${CSS_CLASSES.VALIDATION_MESSAGE}`).length).toBe(3);
     });
-
-    it("onChange event changes state.value", () => {
+    it("are not rendered when not provided", () => {
       const wrapper = shallow(<InputField />);
+
+      expect(wrapper.exists(`.${CSS_CLASSES.VALIDATION_MESSAGE}`)).toBeFalsy();
+    });
+  });
+
+  describe("label", () => {
+    it("is rendered when provided", () => {
+      const testLabel = "this is label";
+      const wrapper = shallow(<InputField label={testLabel} />);
+
+      expect(wrapper.exists("label")).toBeTruthy();
+      expect(wrapper.find("label").text().trim()).toBe(testLabel);
+    });
+    it("is not rendered when not provided", () => {
+      const wrapper = shallow(<InputField />);
+
+      expect(wrapper.exists("label")).toBeFalsy();
+    });
+    it("has label lowered class applied when field is empty", () => {
+      const testLabel = "this is label";
+      const expectedLabel = CSS_CLASSES.LABEL_LOWERED;
+      const wrapper = shallow(<InputField label={testLabel} />);
+      const resultLabel = wrapper.find("label").prop("className");
+
+      expect(resultLabel).toMatch(expectedLabel);
+    });
+    it("has label raised class applied when field is not empty", () => {
+      const testLabel = "this is label";
+      const testValue = "this is value"
+      const expectedLabel =  CSS_CLASSES.LABEL_RAISED;
+      const wrapper = shallow(<InputField label={testLabel} value={testValue} />);
+      const resultLabel = wrapper.find("label").prop("className");
+
+      expect(resultLabel).toMatch(expectedLabel);
+    });
+    it("has label focused and raised classes applied when field is focused", () => {
+      const testLabel = "this is label";
+      const expectedLabelRaised = CSS_CLASSES.LABEL_RAISED;
+      const expectedLabelFocused = CSS_CLASSES.LABEL_FOCUSED;
+      const wrapper = shallow(<InputField label={testLabel} />);
       const mockEvent = {
-        target: { value: "test text"},
         stopPropagation: () => {}
       };
-
-      wrapper.find("input").simulate("change", mockEvent);
       
-      expect(wrapper.state().value).toBe(mockEvent.target.value);
-    });
-
-    it("onFocus event sets state.isInputFieldFocused to true", () => {
-      const wrapper = shallow(<InputField />);
-      const mockEvent = {
-        stopPropagation: () => {}
-      };
-
       wrapper.find("input").simulate("focus", mockEvent);
+      const resultLabel = wrapper.find("label").prop("className");
 
-      expect(wrapper.state().isInputFieldFocused).toBe(true);
+      expect(resultLabel).toMatch(expectedLabelRaised);
+      expect(resultLabel).toMatch(expectedLabelFocused);
     });
+  });
 
-    it("onBlur event sets state.isInputFieldFocused to false", () => {
-      const wrapper = shallow(<InputField />);
-      const mockEvent = {
-        stopPropagation: () => {}
-      };
+  it("onChange event changes state.value", () => {
+    const wrapper = shallow(<InputField />);
+    const mockEvent = {
+      target: { value: "test text"},
+      stopPropagation: () => {}
+    };
 
-      wrapper.find("input").simulate("focus", mockEvent);
-      wrapper.find("input").simulate("blur", mockEvent);
+    wrapper.find("input").simulate("change", mockEvent);
+    
+    expect(wrapper.state().value).toBe(mockEvent.target.value);
+  });
 
-      expect(wrapper.state().isInputFieldFocused).toBe(false);      
-    });
+  it("onFocus event sets state.isInputFieldFocused to true", () => {
+    const wrapper = shallow(<InputField />);
+    const mockEvent = {
+      stopPropagation: () => {}
+    };
 
+    wrapper.find("input").simulate("focus", mockEvent);
+
+    expect(wrapper.state().isInputFieldFocused).toBe(true);
+  });
+
+  it("onBlur event sets state.isInputFieldFocused to false", () => {
+    const wrapper = shallow(<InputField />);
+    const mockEvent = {
+      stopPropagation: () => {}
+    };
+
+    wrapper.find("input").simulate("focus", mockEvent);
+    wrapper.find("input").simulate("blur", mockEvent);
+
+    expect(wrapper.state().isInputFieldFocused).toBe(false);      
+  });
 });
