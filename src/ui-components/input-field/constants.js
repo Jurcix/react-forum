@@ -9,3 +9,9 @@ export const CSS_CLASSES = {
   LABEL_FOCUSED: "focused",
   VALIDATION_MESSAGE: `${INPUT_WRAPPER}__validation-message`
 };
+
+export const INPUT_TYPE = {
+  TEXT: "text",
+  NUMBER: "number",
+  PASSWORD: "password"
+};

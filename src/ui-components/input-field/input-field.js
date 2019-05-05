@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "./input-field.scss";
-import { CSS_CLASSES } from "./constants";
+import { CSS_CLASSES, INPUT_TYPE } from "./constants";
 
 class InputField extends Component {
   constructor(props) {
@@ -17,22 +17,22 @@ class InputField extends Component {
     if(typeof providedValue === "undefined") {
       value = "";
     }    
-    if(inputType !== "number" && typeof providedValue === "number") {
+    if(inputType !== INPUT_TYPE.NUMBER && typeof providedValue === "number") {
       value = providedValue.toString();
     } 
-    if(inputType === "number" && typeof providedValue !== "number") {
+    if(inputType === INPUT_TYPE.NUMBER && typeof providedValue !== "number") {
       value = "";
     }    
     return value;
   }
 
   _getFieldType(providedType) {
-    let type = "text";
+    let type = INPUT_TYPE.TEXT;
 
-    if(providedType === "number") {
+    if(providedType === INPUT_TYPE.NUMBER) {
       type = providedType;
     }
-    if(providedType === "password") {
+    if(providedType === INPUT_TYPE.PASSWORD) {
       type = providedType
     }
 
@@ -55,7 +55,7 @@ class InputField extends Component {
   }
 
   _getLabelClassName() {
-    let className = `${CSS_CLASSES.LABEL}`;
+    let className = CSS_CLASSES.LABEL;
     if (this.state.value || this.state.isInputFieldFocused) {
       className = `${className} ${CSS_CLASSES.LABEL_RAISED}`
 
