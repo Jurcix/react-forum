@@ -1,0 +1,52 @@
+.input-wrapper {
+  &__field {
+    margin: 5px 5px 0px 5px;
+    padding: 8px 2px 2px 2px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #ced4da;
+    width: 250px;
+    height: 25px;
+    font-size: 16px;
+
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid #2e9afe;
+      transition: border-color 0.15s ease-in-out;
+    }
+  }
+
+  &__label {
+    transition: font-size 0.15s ease-in-out, margin 0.15s ease-in-out;
+    position: absolute;
+
+    &.lowered {
+      font-size: 16px;
+      margin: 14px;
+    }
+
+    &.raised {
+      color: #ced4da;
+      font-size: 10px;
+      margin: 0px 0px 0px 5px;
+    }
+
+    &.focused {
+      color: #2e9afe;
+    }
+
+    &:hover {
+      cursor: text;
+    }
+  }
+
+  &__validation-message {
+    font-size: 12px;
+    margin: 2px 0px 4px 5px;
+    color: red;
+    word-wrap: break-word;
+    max-width: 250px;
+    line-height: 12px;
+  }
+}

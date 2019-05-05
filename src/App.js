@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import InputField from "./ui-components/input-field/input-field"
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <InputField
+          id="thisisid"
+          type="text"
+          required={false}
+          value="hello"
+          label="Label"
+          validationMessages={["this is validation message what happens if its a very super duper long validation message", "another message"]}
+          handleChange={(event) => console.log(event.target.value)}
+         />
       </div>
     );
   }
